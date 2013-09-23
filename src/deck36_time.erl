@@ -31,17 +31,22 @@
 %% ====================================================================
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
+%% @doc Time measurement and conversion functions.
+%%
+%% Function names should speak for themselves.
 
 -module(deck36_time).
 
 %% ====================================================================
 %% API functions
 %% ====================================================================
+%% Conversion
 -export([readable/1,
 		 format/2,
 		 timestamp_to_ms/1,
-		 ms_to_timestamp/1,
-		 now_localtime_readable/0,
+		 ms_to_timestamp/1]).
+%% Measurements
+-export([now_localtime_readable/0,
 		 now_localtime_format/1,
 		 now_utc_readable/0,
 		 now_utc_format/1,

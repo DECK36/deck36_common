@@ -31,7 +31,9 @@
 %% ====================================================================
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
-%% @doc Access module for DECK36 pulse structure
+%% @doc Generate and convert a pulse.
+%%
+%% If you don't know what the pulse is, nevermind. Will blog about it later.
 
 -module(deck36_pulse).
 

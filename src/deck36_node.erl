@@ -31,6 +31,14 @@
 %% ====================================================================
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
+%% @doc Configure the current node.
+%%
+%% configure/0, configure/1 configure the current node according to an app environment
+%% or agiven proplist. They currently only set the cookie.
+%%
+%% set_cookie/1, set_cookie/2 allow setting of cookies by atom, list, binary or file.
+%%
+%% See function description for further information.
 
 -module(deck36_node).
 
