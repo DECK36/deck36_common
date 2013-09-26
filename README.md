@@ -24,6 +24,10 @@ deck36_time
 Time measurement and conversion functions.
 
 
+deck36_inet
+------------
+Some inet helpers.
+
 
 See modules for further information.
 
