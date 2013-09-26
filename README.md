@@ -30,6 +30,6 @@ Some inet helpers.
 
 
 Further Information
----------------------------------
+--------------------
 See modules for further information.
 
