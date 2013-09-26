@@ -55,6 +55,23 @@ ntoa_test_() ->
 	].
 	 
 
+%% Test deck36_inet:port_number/1
+%% ====================================================================
+port_number_test_() ->
+	OK = [{0,0}, {1,1}, {65535,65535},
+		  {"0",0}, {"1",1}, {"65535",65535},
+		  {<<"0">>,0}, {<<"1">>,1}, {<<"65535">>,65535}],
+	Einval = [-1, 65536, <<"-1">>, "-1"],
+	EFC = ['1', {1}],
+	Ebadarg = [[1]],
+	[
+	 [{"ok " ++ ?N(X), ?_assertEqual(E, deck36_inet:port_number(X))} || {X,E} <- OK],
+	 [{"error einval " ++ ?N(X), ?_assertError(einval, deck36_inet:port_number(X))} || X <- Einval],
+	 [{"error function_clause" ++ ?N(X), ?_assertException(error, function_clause, deck36_inet:port_number(X))} || X <- EFC],
+	 [{"error badarg" ++ ?N(X), ?_assertException(error, badarg, deck36_inet:port_number(X))} || X <- Ebadarg]
+	].
+
+
 %% Test deck36_inet:is_ip_address_str/1
 %% ====================================================================
 is_ip_address_str_test_() ->

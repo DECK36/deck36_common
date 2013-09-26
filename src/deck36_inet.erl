@@ -48,6 +48,7 @@
 %% API functions
 %% ====================================================================
 -export([ntoa/1,
+		 port_number/1,
 		 is_ip_address_str/1,
 		 is_ip_address_tuple/1,
 		 is_ip_address/1,
@@ -67,6 +68,22 @@ ntoa(Addr) ->
 		true -> R;
 		false -> {error, einval}
 	end.
+
+
+%% port_number/1
+%% ====================================================================
+%% @doc Try to convert given integer, binary or string into a valid port number
+-spec port_number(Port :: integer() | binary() | list()) -> inet:port_number().
+%% ====================================================================
+port_number(Port) when is_integer(Port) ->
+	case is_port_number(Port) of
+		true -> Port;
+		false -> erlang:error(einval)
+	end;
+port_number(Port) when is_binary(Port) ->
+	port_number(erlang:binary_to_integer(Port));
+port_number(Port) when is_list(Port) ->
+	port_number(erlang:list_to_integer(Port)).
 
 
 %% is_ip_address_str/1
