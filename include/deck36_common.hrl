@@ -37,6 +37,8 @@
 %% ====================================================================
 -define(GV(K,L), proplists:get_value(K,L)).
 -define(GV(K,L,D), proplists:get_value(K,L,D)).
+-define(GA(K,L), proplists:get_all_values(K, L)).
+-define(GB(K,L), proplists:get_bool(K,L)).
 
 
 %% ====================================================================
