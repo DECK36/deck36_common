@@ -87,7 +87,6 @@ is_ip_address_str_test_() ->
 %% Test deck36_inet:is_ip_address_tuple/1
 %% ====================================================================
 is_ip_address_tuple_test_() ->
-	N = fun(X) -> lists:flatten(io_lib:format("~p", [X])) end,
 	[
 	 [{"+ " ++ ?N(X), ?_assertEqual(true, deck36_inet:is_ip_address_tuple(X))} || X <- addrs(tuple, valid)],
 	 [{"- " ++ ?N(X), ?_assertEqual(false, deck36_inet:is_ip_address_tuple(X))} || X <- addrs(tuple, invalid)],
