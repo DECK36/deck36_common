@@ -1,7 +1,27 @@
 deck36_common
 ==============
 
-Some common erlang modules used by DECK36.
+Some common erlang modules, types and macros used by DECK36.
+
+common_types.hrl
+-----------------
+Some types that help writing specs more readable. E.g. reason(), void(), ignored().
+
+
+deck36_types.hrl
+-----------------
+Types used in this package.
+
+
+deck36_macros.hrl
+------------------
+Well... some macros
+
+
+deck36_common.hrl
+------------------
+Includes common_types.hrl, deck36_types.hrl, deck36_macros.hrl 
+
 
 deck36_node
 ------------
