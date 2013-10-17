@@ -32,11 +32,14 @@
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
 
--ifndef(DECK36_COMMON_HRL).
--define(DECK36_COMMON_HRL, true).
+-ifndef(DECK36_TYPES_HRL).
+-define(DECK36_TYPES_HRL, true).
 
--include("deck36_macros.hrl").
--include("deck36_types.hrl").
--include("common_types.hrl").
+%% ====================================================================
+%% Types
+%% ====================================================================
+
+%% deck36_common
+-type pulse() :: binary().
 
 -endif.

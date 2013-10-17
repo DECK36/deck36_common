@@ -32,11 +32,15 @@
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
 
--ifndef(DECK36_COMMON_HRL).
--define(DECK36_COMMON_HRL, true).
+-ifndef(DECK36_MACROS_HRL).
+-define(DECK36_MACROS_HRL, true).
 
--include("deck36_macros.hrl").
--include("deck36_types.hrl").
--include("common_types.hrl").
+%% ====================================================================
+%% Macros
+%% ====================================================================
+-define(GV(K,L), proplists:get_value(K,L)).
+-define(GV(K,L,D), proplists:get_value(K,L,D)).
+-define(GA(K,L), proplists:get_all_values(K, L)).
+-define(GB(K,L), proplists:get_bool(K,L)).
 
 -endif.

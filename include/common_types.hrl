@@ -32,11 +32,17 @@
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
 
--ifndef(DECK36_COMMON_HRL).
--define(DECK36_COMMON_HRL, true).
+-ifndef(DECK36_COMMON_TYPES_HRL).
+-define(DECK36_COMMON_TYPES_HRL, true).
 
--include("deck36_macros.hrl").
--include("deck36_types.hrl").
--include("common_types.hrl").
+%% ====================================================================
+%% Types
+%% ====================================================================
+
+%% Common
+-type reason() :: term().
+-type void() :: term().
+-type server_ref() :: pid()
+					| atom().
 
 -endif.
