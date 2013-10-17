@@ -42,6 +42,7 @@
 %% Common
 -type reason() :: term().
 -type void() :: term().
+-type ignored() :: term().
 -type server_ref() :: pid()
 					| atom().
 
