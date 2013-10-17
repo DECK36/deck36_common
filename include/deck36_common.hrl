@@ -32,6 +32,9 @@
 %%
 %% @author Bjoern Kortuemm (@uuid0) <bjoern.kortuemm@deck36.de>
 
+-ifndef(DECK36_COMMON_HRL).
+-define(DECK36_COMMON_HRL, true).
+
 %% ====================================================================
 %% Macros
 %% ====================================================================
@@ -54,3 +57,4 @@
 -type server_ref() :: pid()
 					| atom().
 
+-endif.
