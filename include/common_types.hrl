@@ -45,5 +45,6 @@
 -type ignored() :: term().
 -type server_ref() :: pid()
 					| atom().
+-type from() :: {pid(), term()}.
 
 -endif.
