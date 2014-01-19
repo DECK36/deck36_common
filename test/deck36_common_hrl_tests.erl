@@ -41,6 +41,19 @@
 -include("deck36_common.hrl").
 -include("deck36_common.hrl").
 
+%% Export types to test if properly defined
+-export_type([reason/0,
+			  void/0,
+			  ignored/0,
+			  server_ref/0,
+			  from/0,
+			  regexp/0,
+			  key/0,
+			  proplist/0,
+			  function/0,
+			  argument/0,
+			  fun_opt/0]).
+
 %% ====================================================================
 %% Tests
 %% ====================================================================

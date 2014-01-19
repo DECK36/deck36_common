@@ -47,4 +47,14 @@
 					| atom().
 -type from() :: {pid(), term()}.
 
+-type regexp() :: iodata().
+-type key() :: term().
+-type proplist() :: [proplists:property()].
+
+-type function() :: atom().
+-type argument() :: term().
+-type fun_opt() :: {module(), function()}
+				 | {module(), function(), [argument()]}
+				 | fun().
+
 -endif.
