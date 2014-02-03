@@ -1,6 +1,6 @@
 {application, deck36_common,
  [{description, "DECK36 common library"},
-  {vsn, "0.2.0"},
+  {vsn, "0.3.0"},
   {registered, []},
   {application, [kernel, stdlib]},
   {env, []}
