@@ -38,9 +38,27 @@
 %% ====================================================================
 %% Macros
 %% ====================================================================
+
+%% Proplists shortcuts 
+%% ====================================================================
+%% get_value/2
 -define(GV(K,L), proplists:get_value(K,L)).
+%% get_value/3
 -define(GV(K,L,D), proplists:get_value(K,L,D)).
+%% get_all_values/2
 -define(GA(K,L), proplists:get_all_values(K, L)).
+%% get_bool
 -define(GB(K,L), proplists:get_bool(K,L)).
+
+%% gen_server shortcuts
+%% ====================================================================
+
+%% GEN_SERVER_ASYNC_REPLY/3
+%% ====================================================================
+%% @doc Shortcut for asynchronous reply in a gen_server.
+-define(GEN_SERVER_ASYNC_REPLY(From, Reply, NewState),
+		proc_lib:spawn(fun() -> gen_server:reply(From, Reply) end),
+		{noreply, NewState}).
+
 
 -endif.
