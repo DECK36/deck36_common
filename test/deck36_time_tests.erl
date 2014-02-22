@@ -68,11 +68,22 @@ timestamp_to_ms_test_() ->
 	Ts = {1379,6570,325955},
 	?_assertEqual(1379006570325, deck36_time:timestamp_to_ms(Ts)).
 
+timestamp_to_micros_test_() ->
+	Ts = {1379,6570,325955},
+	?_assertEqual(1379006570325955, deck36_time:timestamp_to_micros(Ts)).
+
 ms_to_timestamp_test_() ->
 	Ms = 1379006570325,
 	[
 	 {"is expected", ?_assertEqual({1379,6570,325000}, deck36_time:ms_to_timestamp(Ms))},
 	 {"Arg < 0 is invalid", ?_assertError(function_clause, deck36_time:ms_to_timestamp(-1))}
+	].
+
+micros_to_timestamp_test_() ->
+	Micros = 1379006570325123,
+	[
+	 {"is expected", ?_assertEqual({1379,6570,325123}, deck36_time:micros_to_timestamp(Micros))},
+	 {"Arg < 0 is invalid", ?_assertError(function_clause, deck36_time:micros_to_timestamp(-1))}
 	].
 
 now_localtime_readable_test_() ->
@@ -90,6 +101,13 @@ now_utc_format_test_() ->
 
 now_timestamp_ms_test_() ->
 	Now = deck36_time:now_timestamp_ms(),
+	[
+	 {"is integer", ?_assertMatch(X when is_integer(X), Now)},
+	 {"is >= 0", ?_assertMatch(X when X >= 0, Now)}
+	].
+
+now_timestamp_micros_test_() ->
+	Now = deck36_time:now_timestamp_micros(),
 	[
 	 {"is integer", ?_assertMatch(X when is_integer(X), Now)},
 	 {"is >= 0", ?_assertMatch(X when X >= 0, Now)}

@@ -44,13 +44,16 @@
 -export([readable/1,
 		 format/2,
 		 timestamp_to_ms/1,
-		 ms_to_timestamp/1]).
+		 timestamp_to_micros/1,
+		 ms_to_timestamp/1,
+		 micros_to_timestamp/1]).
 %% Measurements
 -export([now_localtime_readable/0,
 		 now_localtime_format/1,
 		 now_utc_readable/0,
 		 now_utc_format/1,
-		 now_timestamp_ms/0
+		 now_timestamp_ms/0,
+		 now_timestamp_micros/0
 		 ]).
 
 
@@ -66,7 +69,6 @@ readable({{Year,Month,Day},{Hour,Min,Sec}}) ->
 		[Year, Month, Day, Hour, Min, Sec]));
 readable({_,_,_}=Timestamp) ->
 	readable(calendar:now_to_datetime(Timestamp)).
-
 
 
 %% format/2
@@ -89,17 +91,39 @@ timestamp_to_ms({MegaSecs, Secs, MicroSecs}) ->
 	((MegaSecs * 1000000 + Secs) * 1000) + (MicroSecs div 1000).
 
 
+%% timestamp_to_micros/1
+%% ====================================================================
+%% @doc Convert erlang:timestamp() to microseconds
+-spec timestamp_to_micros(erlang:timestamp()) -> non_neg_integer().
+%% ====================================================================
+timestamp_to_micros({MegaSecs, Secs, MicroSecs}) ->
+	((MegaSecs * 1000000 + Secs) * 1000000) + MicroSecs.
+
+
 %% ms_to_timestamp/1
 %% ====================================================================
 %% @doc Convert timestamp in milliseconds to erlang:timestamp()
 -spec ms_to_timestamp(non_neg_integer()) -> erlang:timestamp().
 %% ====================================================================
-ms_to_timestamp(MilliSecs) when MilliSecs >= 0->
+ms_to_timestamp(MilliSecs) when MilliSecs >= 0 ->
 	MicroSecs = (MilliSecs rem 1000) * 1000,
 	TSecs = (MilliSecs div 1000),
 	Secs = (TSecs rem 1000000),
 	MegaSecs = (TSecs div 1000000),
 	{MegaSecs, Secs, MicroSecs}.
+
+
+%% micros_to_timestamp/1
+%% ====================================================================
+%% @doc Convert timestamp in microseconds to erlang:timestamp()
+-spec micros_to_timestamp(non_neg_integer()) -> erlang:timestamp().
+%% ====================================================================
+micros_to_timestamp(MicroSecs) when MicroSecs >= 0 ->
+	RMicroSecs = (MicroSecs rem 1000000),
+	TSecs = (MicroSecs div 1000000),
+	RSecs = (TSecs rem 1000000),
+	RMegaSecs = (TSecs div 1000000),
+	{RMegaSecs, RSecs, RMicroSecs}.
 
 
 %% now_localtime_readable/0
@@ -146,3 +170,11 @@ now_utc_format(Format) ->
 now_timestamp_ms() ->
 	timestamp_to_ms(os:timestamp()).
 
+
+%% now_timestamp_micros/0
+%% ====================================================================
+%% @doc Get current timestamp in microseconds
+-spec now_timestamp_micros() -> non_neg_integer().
+%% ====================================================================
+now_timestamp_micros() ->
+	timestamp_to_micros(os:timestamp()).
