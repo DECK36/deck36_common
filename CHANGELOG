@@ -2,4 +2,4 @@
 ------
 - New: deck36_time:timestamp_to_micros/1
 - New: deck36_time:micros_to_timestamp/1
-- New: deck36_time:now_to_micros/0
+- New: deck36_time:now_timestamp_micros/0
