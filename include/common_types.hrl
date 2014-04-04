@@ -51,7 +51,7 @@
 -type key() :: term().
 -type proplist() :: [proplists:property()].
 
--type function() :: atom().
+%%-type function() :: atom().
 -type argument() :: term().
 -type fun_opt() :: {module(), function()}
 				 | {module(), function(), [argument()]}
