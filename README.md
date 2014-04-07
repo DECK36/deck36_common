@@ -51,5 +51,7 @@ Some inet helpers.
 
 Further Information
 --------------------
+CI with travis: https://travis-ci.org/DECK36/deck36_common
+
 See modules for further information.
 
