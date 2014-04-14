@@ -1,5 +1,5 @@
-next
-----
+1.1.0
+------
 - meck dependency switched to master, since there is no tag compatible with Erlang 17
 - Travis support added.
 
