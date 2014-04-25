@@ -49,6 +49,11 @@ deck36_inet
 Some inet helpers.
 
 
+deck36_test_util
+-----------------
+Some utils to help writing tests.
+
+
 Further Information
 --------------------
 CI with travis: https://travis-ci.org/DECK36/deck36_common
