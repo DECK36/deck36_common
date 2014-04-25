@@ -93,6 +93,27 @@ wait_for_stop_2_named_not_started_test() ->
 	Name = deck36_test_util_proc_3,
 	?assertEqual(ok, deck36_test_util:wait_for_stop(Name, 5)).
 
+
+%% Test fetch_ets/3
+%% ====================================================================
+fetch_ets_3_test_() ->
+	{setup,
+	 fun() ->
+			 Tab = ets:new(deck36_test_util_test_fetch_ets, [public, named_table]),
+			 ets:insert(Tab, {test_2, test_value}),
+			 Tab
+	 end,
+	 fun(Tab) ->
+			 ets:delete(Tab)
+	 end,
+	 fun(Tab) ->
+			 [
+			  {"timeout", ?_assertEqual({error, timeout}, deck36_test_util:fetch_ets(Tab, test_1, 5))},
+			  {"found", ?_assertEqual({ok, {test_2, test_value}}, deck36_test_util:fetch_ets(Tab, test_2, 10))}
+			 ]
+	 end}.
+			 
+
 %% Test expect_ets/4
 %% ====================================================================
 expect_ets_4_test_() ->

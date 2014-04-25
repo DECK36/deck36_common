@@ -36,12 +36,15 @@
 
 -module(deck36_test_util).
 
+-include("deck36_common.hrl").
+
 %% ====================================================================
 %% API functions
 %% ====================================================================
 -export([unmock/1,
 		 rcv/1,
 		 wait_for_stop/2,
+		 fetch_ets/3,
 		 expect_ets/4]).
 
 %% unmock/1
@@ -96,6 +99,29 @@ wait_for_stop(Name, Tries) when is_atom(Name) ->
 	end.
 
 
+%% fetch_ets/3
+%% ====================================================================
+%% @doc Try to fetch K from ets Tab.
+%%
+%% This function will do a sleep-spin-wait Tries times. It will sleep
+%% for 1 ms between tries, so you could interpret it as a rough timeout
+%% in ms.
+-spec fetch_ets(Tab, key(), Tries) -> {ok, term()} | {error, timeout} when
+	Tab :: ets:tid(),
+	Tries :: non_neg_integer().
+%% ====================================================================
+fetch_ets(_, _, 0) ->
+	{error, timeout};
+fetch_ets(Tab, K, Tries) ->
+	case ets:lookup(Tab, K) of
+		[] ->
+			timer:sleep(1),
+			fetch_ets(Tab, K, Tries-1);
+		[X] ->
+			{ok, X}
+	end.
+
+
 %% expect_ets/4
 %% ====================================================================
 %% @doc Expect a certain term to be written to the given ets Tab.
@@ -106,27 +132,23 @@ wait_for_stop(Name, Tries) when is_atom(Name) ->
 %% 
 %% You can either specify V to be a predicate function or a term that
 %% has to match the written value.
--spec expect_ets(Tab, Key, Value, Tries) -> ok | {error, timeout} | {unexpected, term()} when
+-spec expect_ets(Tab, key(), Value, Tries) -> ok | {error, timeout} | {unexpected, term()} when
 	Tab :: ets:tid(),
-	Key :: term(),
 	Value :: term(),
 	Tries :: non_neg_integer().
 %% ====================================================================
-expect_ets(_, _, _, 0) ->
-	{error, timeout};
 expect_ets(Tab, K, V, Tries) ->
-	case ets:lookup(Tab, K) of
-		[] ->
-			timer:sleep(1),
-			expect_ets(Tab, K, V, Tries-1);
-		[{K, X}] when is_function(V) ->
+	case fetch_ets(Tab, K, Tries) of
+		{error, timeout} ->
+			{error, timeout};
+		{ok, {K, X}} when is_function(V) ->
 			case V(X) of
 				true -> ok;
 				false -> {unexpected, {K, X}}
 			end;
-		[{K, V}] ->
+		{ok, {K, V}} ->
 			ok;
-		[X] ->
+		{ok, X} ->
 			{unexpected, X}
 	end.
 
